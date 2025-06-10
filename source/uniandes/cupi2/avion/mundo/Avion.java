@@ -328,14 +328,43 @@ public class Avion
     {
         return sillasEconomicas;
     }
+    
+    public Clase darClaseConMasSillasEnVentanaOcupadas()
+    {
+        int ejecutivas = contarsillasconventanasocupadas(sillasEjecutivas);
+        int economicas = contarsillasconventanasocupadas(sillasEconomicas);
 
+        if (ejecutivas > economicas) {
+            return Clase.EJECUTIVA;
+        } else if (economicas > ejecutivas) {
+            return Clase.ECONOMICA;
+        } else {
+            return null;
+        }
+    }
+
+    
+    private int contarsillasconventanasocupadas(Silla[] sillas) {
+    	int contador = 0;
+    	for (Silla silla : sillas) {
+    		if (silla.darUbicacion() == Ubicacion.VENTANA && silla.sillaAsignada()) {
+    			contador++;
+    		}
+    	}
+    	return contador;
+    }
     /**
      * Método para la extensión 1.
      * @return Respuesta 1.
      */
     public String metodo1( )
     {
-        return "Respuesta 1";
+        Clase clasemayor = darClaseConMasSillasEnVentanaOcupadas();
+        if (clasemayor != null) {
+        	return "la clase con mayor número de asientos en ventanas ocupados es: " + clasemayor;
+        } else {
+        	return "ambas clases tienen el mismo numero de sillas en ventanas ocupadas";
+        }
     }
 
     /**
