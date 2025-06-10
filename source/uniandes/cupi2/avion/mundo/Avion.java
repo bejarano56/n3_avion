@@ -353,6 +353,15 @@ public class Avion
     	}
     	return contador;
     }
+    
+    public Silla darSillaeconomicaLibreEnVentada() {
+    	for (Silla silla : sillasEconomicas) {
+    		if (silla.darUbicacion() == Ubicacion.VENTANA && !silla.sillaAsignada()) {
+    			return silla;
+    		}
+    	}
+    return null;
+}
     /**
      * Método para la extensión 1.
      * @return Respuesta 1.
@@ -373,7 +382,12 @@ public class Avion
      */
     public String metodo2( )
     {
-        return "Respuesta 2";
+        Silla silla = darSillaeconomicaLibreEnVentada();
+        if (silla != null) {
+        	return "si hay una silla económica gratuita en la ventana: " + silla.darNumero() + ",";
+        } else {
+        	return "no hay sillas economicas libres en la ventana";
+        }
     }
 
 }
